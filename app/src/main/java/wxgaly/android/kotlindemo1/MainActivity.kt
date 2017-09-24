@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    val TOUCH_MOVE_MAX_Y: Float = 600f
     var mTouchMoveStartY: Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,10 +18,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+
         ll.setOnTouchListener { view, motionEvent -> onTouch(view, motionEvent) }
     }
 
-    fun onTouch(view : View, motionEvent: MotionEvent) : Boolean {
+    fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
 
         val action = motionEvent.action
 
@@ -28,15 +30,25 @@ class MainActivity : AppCompatActivity() {
 
             MotionEvent.ACTION_DOWN -> {
                 mTouchMoveStartY = motionEvent.y
-               return true
+                return true
             }
 
-//            MotionEvent.ACTION_MOVE ->
+            MotionEvent.ACTION_MOVE -> {
+                val y: Float = motionEvent.y
+                if (y >= mTouchMoveStartY) {
+                    val moveSize: Float = y - mTouchMoveStartY
+                    val progress: Float =
+                            if (moveSize >= TOUCH_MOVE_MAX_Y) 1f else moveSize / TOUCH_MOVE_MAX_Y
+                    touchPullView.setProgress(progress)
+                }
+                return true
+            }
 
-            else -> return false
+            else -> {}
         }
 
         return false
     }
+
 
 }

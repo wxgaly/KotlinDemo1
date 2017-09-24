@@ -8,8 +8,13 @@
     tools:context="wxgaly.android.kotlindemo1.MainActivity">
 
 
-    <wxgaly.android.kotlindemo1.TouchPullView
+    <wxgaly.android.kotlindemo1.view.TouchPullView
         android:id="@+id/touchPullView"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+    <wxgaly.android.kotlindemo1.view.BezierCurveView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
