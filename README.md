@@ -1,0 +1,2 @@
+# KotlinDemo1
+# 仅仅是一个练习使用kotlin编写Android的Demo，开始涉及一个自定义View的实现，后面会继续更新实现MVP等框架的组件
