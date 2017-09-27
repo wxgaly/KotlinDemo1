@@ -15,6 +15,7 @@ class BezierView : View {
 
     private val mPaint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val mPath: Path = Path()
+    private val mSrcPath: Path = Path()
 
     constructor(context: Context) : super(context) {
         init()
@@ -38,13 +39,41 @@ class BezierView : View {
         mPaint.color = Color.GREEN
         mPaint.strokeWidth = 10f
 
+        mSrcPath.rCubicTo(300f, 300f, 200f, 700f, 500f, 200f)
+
+        Thread(Runnable {
+            initBezier()
+
+        }).start()
+
+
     }
 
     private fun initBezier() {
-        val xPoints = arrayOf(0, 300, 200, 500, 700)
-        val yPoints = arrayOf(0, 300, 700, 500, 1200)
 
-        val progress : Float = 0.2f
+
+
+//        val xPoints : Array<Float> = arrayOf(0f, 300f, 200f, 500f, 700f)
+//        val yPoints : Array<Float> = arrayOf(0f, 300f, 700f, 1200f, 200f)
+        val xPoints : Array<Float> = arrayOf(0f, 300f, 200f, 500f)
+        val yPoints : Array<Float> = arrayOf(0f, 300f, 700f, 200f)
+
+        val fps = 1000
+
+        val path = mPath
+
+        for (i in 0 until fps) {
+
+            val time : Float = i / fps.toFloat()
+            val x = calculateBezier(time, xPoints)
+            val y = calculateBezier(time, yPoints)
+            path.lineTo(x, y)
+
+            postInvalidate()
+
+            Thread.sleep(16)
+        }
+
     }
 
     /**
@@ -53,12 +82,14 @@ class BezierView : View {
      * @param values bezier points (x or y)
      * @return the bezier point at the time
      */
-    private fun calculateBezier(time : Float, values : FloatArray) : Float {
+    private fun calculateBezier(time: Float, values: Array<Float>): Float {
 
         val len = values.size
 
-        for(x in len downTo 0){
-
+        for (x in len - 1 downTo 0) {
+            for (y in 0 until x) {
+                values[y] = values[y] + (values[y + 1] - values[y]) * time
+            }
         }
 
         return values[0]
@@ -66,6 +97,11 @@ class BezierView : View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+
+        mPaint.color = 0x40000000
+        canvas?.drawPath(mSrcPath, mPaint)
+
+        mPaint.color = Color.RED
         canvas?.drawPath(mPath, mPaint)
     }
 

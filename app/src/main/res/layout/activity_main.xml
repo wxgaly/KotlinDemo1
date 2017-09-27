@@ -16,6 +16,12 @@
 
     <wxgaly.android.kotlindemo1.view.BezierCurveView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+    <wxgaly.android.kotlindemo1.view.BezierView
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </LinearLayout>
