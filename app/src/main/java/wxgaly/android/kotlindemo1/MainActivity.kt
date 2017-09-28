@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
+            MotionEvent.ACTION_UP -> {
+                touchPullView.release()
+                return true
+            }
+
             else -> {}
         }
 

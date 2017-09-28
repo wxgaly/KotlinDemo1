@@ -11,7 +11,6 @@
     <wxgaly.android.kotlindemo1.view.TouchPullView
         android:id="@+id/touchPullView"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="wrap_content" />
 
     <wxgaly.android.kotlindemo1.view.BezierCurveView
@@ -22,6 +21,8 @@
 
     <wxgaly.android.kotlindemo1.view.BezierView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
 
 </LinearLayout>
